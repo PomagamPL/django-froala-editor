@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls import reverse, NoReverseMatch
 from django.forms import widgets, Media
 from django.utils.safestring import mark_safe
 from django.conf import settings
@@ -50,8 +50,8 @@ class FroalaEditor(widgets.Textarea):
         json_options = json_options.replace('"csrftokenplaceholder"', 'getCookie("csrftoken")')
         return json_options
 
-    def render(self, name, value, attrs=None):
-        html = super(FroalaEditor, self).render(name, value, attrs)
+    def render(self, name, value, attrs=None, renderer=None):
+        html = super(FroalaEditor, self).render(name, value, attrs, renderer)
         el_id = self.build_attrs(attrs).get('id')
         html += self.trigger_froala(el_id, self.get_options())
         return mark_safe(html)
